@@ -552,7 +552,7 @@ const controlRecipes = async function() {
         (0, _recipeViewJsDefault.default).render(recipe);
     // const recipeView = new recipeView(model.state.recipe);
     } catch (err) {
-        console.log(err);
+        (0, _recipeViewJsDefault.default).renderError();
     }
 };
 const init = function() {
@@ -1695,6 +1695,7 @@ const loadRecipe = async function(id) {
         };
     } catch (err) {
         console.error(`${err} 🔥🔥🔥`);
+        throw err;
     }
 //   console.log(state.recipe);
 };
@@ -2339,6 +2340,8 @@ var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 var _fractional = require("fractional");
 class RecipeView {
     #data;
+    #errorMessage = "We could not find that recipe. Please try another one.";
+    #message = "";
     #parentElemrnt = document.querySelector(".recipe");
     render(data) {
         this.#data = data;
@@ -2357,7 +2360,35 @@ class RecipeView {
       </svg>
     </div>
     `;
-        this.#parentElemrnt.innerHTML = "";
+        this.#clear();
+        this.#parentElemrnt.insertAdjacentHTML("afterbegin", markup);
+    }
+    renderError(msg = this.#errorMessage) {
+        const markup = `
+    <div class="error">
+      <div>
+        <svg>
+          <use href="${(0, _iconsSvgDefault.default)}#icon-alert-triangle"></use>
+        </svg>
+      </div>
+      <p>${msg}</p>
+    </div>
+    `;
+        this.#clear();
+        this.#parentElemrnt.insertAdjacentHTML("afterbegin", markup);
+    }
+    renderMessage(msg = this.#message) {
+        const markup = `
+    <div class="message">
+      <div>
+        <svg>
+          <use href="${(0, _iconsSvgDefault.default)}#icon-smile"></use>
+        </svg>
+      </div>
+      <p>${msg}</p>
+    </div>
+    `;
+        this.#clear();
         this.#parentElemrnt.insertAdjacentHTML("afterbegin", markup);
     }
     addHandlerRender(handler) {
