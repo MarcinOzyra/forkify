@@ -59,7 +59,6 @@ export const getSearchResultsPage = function (page = state.search.pageNumber) {
 };
 
 export const updateServings = function (newServings) {
-  console.log(state);
   state.recipe.ingredients.forEach(ing => {
     ing.quantity = (ing.quantity * newServings) / state.recipe.servings;
   });
