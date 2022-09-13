@@ -13,6 +13,7 @@ node_modules/
 docs/
 .tmp/
 api.js
+config.js
 
 # OS or Editor folders
 .DS_Store
